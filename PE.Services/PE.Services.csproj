@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{069E0DDB-7BB1-4CF0-8B94-59B1F10FA125}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.Services</RootNamespace>
+    <AssemblyName>PE.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Default\BaseCalculationStrategy.cs" />
+    <Compile Include="Default\CalculateService.cs" />
+    <Compile Include="Default\ConstantVelocityCalculationStrategy.cs" />
+    <Compile Include="Default\CycloidalCalculationStrategy.cs" />
+    <Compile Include="Default\ExcelExportService.cs" />
+    <Compile Include="Default\LinearCalculationStrategy.cs" />
+    <Compile Include="Default\SegmentManager.cs" />
+    <Compile Include="ICalculateService.cs" />
+    <Compile Include="ICalculationStrategy.cs" />
+    <Compile Include="IExportService.cs" />
+    <Compile Include="ISegmentManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PE.Common\PE.Common.csproj">
+      <Project>{3435c7cd-6121-40b4-8784-c3a69873482f}</Project>
+      <Name>PE.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Entities\PE.Entities.csproj">
+      <Project>{923708d1-59fe-44ad-9dc6-a3a9a08187f9}</Project>
+      <Name>PE.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Language\PE.Language.csproj">
+      <Project>{96B76C3F-81C9-40ED-9200-7CEEBB20FE22}</Project>
+      <Name>PE.Language</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

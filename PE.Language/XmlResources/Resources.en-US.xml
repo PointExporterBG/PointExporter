@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <data name="angle">
+    <value>Angle</value>
+  </data>
+  <data name="back">
+    <value>Back</value>
+  </data>
+  <data name="bearing_radius">
+    <value>Bearing radius</value>
+  </data>
+  <data name="bearing_radius_0">
+    <value>Bearing radius must not be 0</value>
+  </data>
+  <data name="bearing_radius_required_for_offset">
+    <value>Bearing radius must have a value when calculating offsets</value>
+  </data>
+  <data name="calculate">
+    <value>Calculate</value>
+  </data>
+  <data name="calculate_before_export">
+    <value>Please calculate first then export</value>
+  </data>
+  <data name="calculate_offsets">
+    <value>Calculate offset curves</value>
+  </data>
+  <data name="calculating_0">
+    <value>Calculating 0%</value>
+  </data>
+  <data name="calculating_percent">
+    <value>Calculating {0}%</value>
+  </data>
+  <data name="clockwise">
+    <value>Clockwise</value>
+  </data>
+  <data name="ConstantVelocity">
+    <value>Constant Velocity</value>
+  </data>
+  <data name="counter_clockwise">
+    <value>Counter clockwise</value>
+  </data>
+  <data name="Cycloidal">
+    <value>Cycloidal</value>
+  </data>
+  <data name="direction">
+    <value>Direction</value>
+  </data>
+  <data name="end_angle">
+    <value>End Angle [°]</value>
+  </data>
+  <data name="end_angle_not_equal_start_angle">
+    <value>EndAngle must not be equal to StartAngle</value>
+  </data>
+  <data name="end_height">
+    <value>End Height [mm]</value>
+  </data>
+  <data name="enter_all_values">
+    <value>Please enter all values</value>
+  </data>
+  <data name="enter_at_least_one_segment">
+    <value>Please enter at least one segment</value>
+  </data>
+  <data name="enter_bearing_radius">
+    <value>Please enter Bearing radius</value>
+  </data>
+  <data name="enter_number_for_bearing_radius">
+    <value>Please enter a number for Bearing radius</value>
+  </data>
+  <data name="enter_number_for_offset_z">
+    <value>Please enter a number for OffsetZ</value>
+  </data>
+  <data name="enter_number_for_radius">
+    <value>Please enter a number for Radius</value>
+  </data>
+  <data name="enter_radius">
+    <value>Please enter Radius</value>
+  </data>
+  <data name="error">
+    <value>Error</value>
+  </data>
+  <data name="excel_not_installed">
+    <value>Excel is not properly installed</value>
+  </data>
+  <data name="export">
+    <value>Export</value>
+  </data>
+  <data name="exporting_0">
+    <value>Exporting 0%</value>
+  </data>
+  <data name="exporting_percent">
+    <value>Exporting {0}%</value>
+  </data>
+  <data name="formula">
+    <value>Formula</value>
+  </data>
+  <data name="incorrect_values_in_import_file">
+    <value>Import file contains incorrect value(s)</value>
+  </data>
+  <data name="information">
+    <value>Information</value>
+  </data>
+  <data name="Linear">
+    <value>Linear</value>
+  </data>
+  <data name="mm">
+    <value>[mm]</value>
+  </data>
+  <data name="must_be_double">
+    <value>{0} must be double</value>
+  </data>
+  <data name="new_layout">
+    <value>New layout</value>
+  </data>
+  <data name="not_supported_formula">
+    <value>Not supported formula</value>
+  </data>
+  <data name="offset_curves">
+    <value>Offset curves</value>
+  </data>
+  <data name="offset_z">
+    <value>Move curves Z</value>
+  </data>
+  <data name="open_layout">
+    <value>Open layout</value>
+  </data>
+  <data name="precision">
+    <value>Precision</value>
+  </data>
+  <data name="radius">
+    <value>Radius</value>
+  </data>
+  <data name="results">
+    <value>Results</value>
+  </data>
+  <data name="save_changes_to_file">
+    <value>Do you want to save changes to {0}?</value>
+  </data>
+  <data name="save_layout">
+    <value>Save layout</value>
+  </data>
+  <data name="segments">
+    <value>Segments</value>
+  </data>
+  <data name="select_formula">
+    <value>Please select formula</value>
+  </data>
+  <data name="settings">
+    <value>Settings</value>
+  </data>
+  <data name="start_angle">
+    <value>Start Angle [°]</value>
+  </data>
+  <data name="start_height">
+    <value>Start Height [mm]</value>
+  </data>
+  <data name="x">
+    <value>X</value>
+  </data>
+  <data name="y">
+    <value>Y</value>
+  </data>
+  <data name="z">
+    <value>Z</value>
+  </data>
+</root>

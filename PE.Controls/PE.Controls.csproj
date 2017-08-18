@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1AB46DC-CE6E-4775-8DCB-658C710E4D92}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PE.Controls</RootNamespace>
+    <AssemblyName>PE.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\BaseUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Charts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Charts.Designer.cs">
+      <DependentUpon>Charts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PECheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PETabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PETextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Default\PointCharts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Default\PointSegments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IStylable.cs" />
+    <Compile Include="ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SegmentDataSet.cs">
+      <DependentUpon>SegmentDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDataSet.Designer.cs">
+      <DependentUpon>SegmentDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Segments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Segments.Designer.cs">
+      <DependentUpon>Segments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Charts.resx">
+      <DependentUpon>Charts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Segments.resx">
+      <DependentUpon>Segments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="SegmentDataSet.xsc">
+      <DependentUpon>SegmentDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SegmentDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SegmentDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SegmentDataSet.xss">
+      <DependentUpon>SegmentDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PE.Common\PE.Common.csproj">
+      <Project>{3435c7cd-6121-40b4-8784-c3a69873482f}</Project>
+      <Name>PE.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Entities\PE.Entities.csproj">
+      <Project>{923708d1-59fe-44ad-9dc6-a3a9a08187f9}</Project>
+      <Name>PE.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Language\PE.Language.csproj">
+      <Project>{96b76c3f-81c9-40ed-9200-7ceebb20fe22}</Project>
+      <Name>PE.Language</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PE.Services\PE.Services.csproj">
+      <Project>{069e0ddb-7bb1-4cf0-8b94-59b1f10fa125}</Project>
+      <Name>PE.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
