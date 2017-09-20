@@ -1,41 +1,47 @@
 ﻿using PE.Common;
-using PE.Common.Exceptions;
 using PE.Entities;
 using PE.Language;
-using System;
 
 namespace PE.Services.Default
 {
     public class LinearCalculationStrategy<TCompositePoint, TPoint, TSegment>
-        : BaseCalculationStrategy<TCompositePoint, TPoint>, ICalculationStrategy<TCompositePoint, TPoint, TSegment>
+        : BaseCalculationStrategy<TCompositePoint, TPoint, TSegment>, ICalculationStrategy<TCompositePoint, TPoint, TSegment>
         where TCompositePoint : ICompositePoint<TPoint>, new()
-        where TPoint : IPoint
+        where TPoint : IPoint, new()
         where TSegment : ISegment, new()
     {
-        public LinearCalculationStrategy(ICompositePointFactory<TCompositePoint, TPoint> compositePointFactory, IResourceManager resourceManager)
-            : base(compositePointFactory, resourceManager)
+        public LinearCalculationStrategy(ICompositePointFactory<TCompositePoint, TPoint> compositePointFactory,
+            IPointFactory<TPoint> pointFactory, IResourceManager resourceManager)
+            : base(compositePointFactory, pointFactory, resourceManager)
         {
         }
 
-        public TCompositePoint CalculatePoint(double radius, double? bearingRadius,
-            double offsetZ, Direction directionSign, bool calculateOffsets, double middle,
-            double currentPosition, TSegment segment)
+        protected override void Validate(TSegment segment, bool calculateOffsets, double? bearingRadius,
+            bool calculateBearingDepth, double? bearingDepth)
         {
-            double x = (int)directionSign * radius * Math.Cos((currentPosition + segment.StartAngle) * Constants.RADIAN);
-            double y = (int)directionSign * radius * Math.Sin((currentPosition + segment.StartAngle) * Constants.RADIAN);
+            ValidateBearingRadius(calculateOffsets, bearingRadius);
+            ValidateBearingDepth(calculateBearingDepth, bearingDepth);
+        }
+
+        protected override TPoint CalculateCentral(TPoint pointPartial, TSegment segment,
+            double radius, double offsetZ, double currentPosition, double middle)
+        {
+            double x = pointPartial.X * radius;
+            double y = pointPartial.Y * radius;
             double z = segment.StartHeight + offsetZ;
             double angle = currentPosition + segment.StartAngle;
 
-            if (!calculateOffsets)
-                return compositePointFactory.Create(x, y, z, angle);
+            return pointFactory.Create(x, y, z, angle);
+        }
 
-            if (!bearingRadius.HasValue)
-                throw new PEArgumentException(resourceManager, "bearing_radius_required_for_offset");
+        protected override (TPoint pointAbove, TPoint pointBelow) CalculateAboveBelow(TPoint point, TSegment segment,
+            double radius, double currentPosition, bool calculateOffsets, double? bearingRadius, double middle)
+        {
+            double zAbove = calculateOffsets && bearingRadius.HasValue ? point.Z + bearingRadius.Value : 0;
+            double zBelow = calculateOffsets && bearingRadius.HasValue ? point.Z - bearingRadius.Value : 0;
 
-            return compositePointFactory.Create(
-                x, y, z, angle,
-                x, y, z + bearingRadius.Value, angle,
-                x, y, z - bearingRadius.Value, angle);
+            return (pointFactory.Create(point.X, point.Y, zAbove, point.Angle),
+                    pointFactory.Create(point.X, point.Y, zBelow, point.Angle));
         }
     }
 }

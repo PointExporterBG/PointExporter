@@ -16,6 +16,14 @@ namespace PE.Controls
             }
         }
 
+        public bool CalculatePlanar
+        {
+            get
+            {
+                return chbPlanar.Checked;
+            }
+        }
+
         public bool CalculateOffsets
         {
             get
@@ -30,6 +38,24 @@ namespace PE.Controls
             {
                 return CalculateOffsets
                     ? ParseUtils.ParseDouble(tbxBearingRadius.Text)
+                    : (double?)null;
+            }
+        }
+
+        public bool CalculateBearingDepth
+        {
+            get
+            {
+                return chbCalculateBearingDepth.Checked;
+            }
+        }
+
+        public double? BearingDepth
+        {
+            get
+            {
+                return CalculateBearingDepth
+                    ? ParseUtils.ParseDouble(tbxBearingDepth.Text)
                     : (double?)null;
             }
         }
@@ -64,6 +90,21 @@ namespace PE.Controls
             lblBearingRadius.Visible = chbCalculateOffsets.Checked;
             tbxBearingRadius.Visible = chbCalculateOffsets.Checked;
             lblBearingMM.Visible = chbCalculateOffsets.Checked;
+            chbCalculateBearingDepth.Visible = chbCalculateOffsets.Checked;
+
+            ManageBearingDepthVisibility(chbCalculateOffsets.Checked && chbCalculateBearingDepth.Checked);
+        }
+
+        private void chbCalculateBearingDepth_CheckedChanged(object sender, System.EventArgs e)
+        {
+            ManageBearingDepthVisibility(chbCalculateBearingDepth.Checked);
+        }
+
+        private void ManageBearingDepthVisibility(bool visible)
+        {
+            lblBearingDepth.Visible = visible;
+            tbxBearingDepth.Visible = visible;
+            lblBearingDepthMM.Visible = visible;
         }
 
         public new bool Validate()
@@ -80,6 +121,10 @@ namespace PE.Controls
             {
                 if (!ValidateBearingRadius())
                     return false;
+
+                if (CalculateBearingDepth)
+                    if (!ValidateBearingDepth())
+                        return false;
             }
 
             return true;
@@ -94,9 +139,13 @@ namespace PE.Controls
             lblRadiusMM.Text = GetResource("mm");
             lblBearingRadius.Text = GetResource("bearing_radius");
             lblBearingMM.Text = GetResource("mm");
+            chbCalculateBearingDepth.Text = GetResource("calculate_bearing_depth");
+            lblBearingDepth.Text = GetResource("bearing_depth");
+            lblBearingDepthMM.Text = GetResource("mm");
             lblOffsetZ.Text = GetResource("offset_z");
             lblOffsetMM.Text = GetResource("mm");
             chbCalculateOffsets.Text = GetResource("calculate_offsets");
+            chbPlanar.Text = GetResource("planar_curve");
             rbCounterClockwise.Text = GetResource("counter_clockwise");
             rbClockwise.Text = GetResource("clockwise");
         }
@@ -131,6 +180,24 @@ namespace PE.Controls
             if (!double.TryParse(tbxBearingRadius.Text, out valueBearingRadius))
             {
                 errorProvider.SetError(tbxBearingRadius, GetResource("enter_number_for_bearing_radius"));
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidateBearingDepth()
+        {
+            if (string.IsNullOrWhiteSpace(tbxBearingDepth.Text))
+            {
+                errorProvider.SetError(tbxBearingDepth, GetResource("enter_bearing_depth"));
+                return false;
+            }
+
+            double valueBearingDepth;
+            if (!double.TryParse(tbxBearingDepth.Text, out valueBearingDepth))
+            {
+                errorProvider.SetError(tbxBearingDepth, GetResource("enter_number_for_bearing_depth"));
                 return false;
             }
 

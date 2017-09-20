@@ -79,6 +79,24 @@ namespace PE.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bearing depth.
+        /// </summary>
+        internal static string bearing_depth {
+            get {
+                return ResourceManager.GetString("bearing_depth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bearing depth must have a value when calculating inner offsets.
+        /// </summary>
+        internal static string bearing_depth_required_for_inner_offset {
+            get {
+                return ResourceManager.GetString("bearing_depth_required_for_inner_offset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bearing radius.
         /// </summary>
         internal static string bearing_radius {
@@ -115,6 +133,15 @@ namespace PE.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate bearing depth.
+        /// </summary>
+        internal static string calculate_bearing_depth {
+            get {
+                return ResourceManager.GetString("calculate_bearing_depth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please calculate first then export.
         /// </summary>
         internal static string calculate_before_export {
@@ -147,6 +174,15 @@ namespace PE.Language {
         internal static string calculating_percent {
             get {
                 return ResourceManager.GetString("calculating_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
         
@@ -241,11 +277,29 @@ namespace PE.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter Bearing depth.
+        /// </summary>
+        internal static string enter_bearing_depth {
+            get {
+                return ResourceManager.GetString("enter_bearing_depth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter Bearing radius.
         /// </summary>
         internal static string enter_bearing_radius {
             get {
                 return ResourceManager.GetString("enter_bearing_radius", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a number for Bearing depth.
+        /// </summary>
+        internal static string enter_number_for_bearing_depth {
+            get {
+                return ResourceManager.GetString("enter_number_for_bearing_depth", resourceCulture);
             }
         }
         
@@ -322,11 +376,65 @@ namespace PE.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting above inner points {0}%.
+        /// </summary>
+        internal static string exporting_above_inner_percent {
+            get {
+                return ResourceManager.GetString("exporting_above_inner_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting above points {0}%.
+        /// </summary>
+        internal static string exporting_above_percent {
+            get {
+                return ResourceManager.GetString("exporting_above_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting below inner points {0}%.
+        /// </summary>
+        internal static string exporting_below_inner_percent {
+            get {
+                return ResourceManager.GetString("exporting_below_inner_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting below points {0}%.
+        /// </summary>
+        internal static string exporting_below_percent {
+            get {
+                return ResourceManager.GetString("exporting_below_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting main points {0}%.
+        /// </summary>
+        internal static string exporting_main_percent {
+            get {
+                return ResourceManager.GetString("exporting_main_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting {0}%.
         /// </summary>
         internal static string exporting_percent {
             get {
                 return ResourceManager.GetString("exporting_percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting planar points {0}%.
+        /// </summary>
+        internal static string exporting_planar_percent {
+            get {
+                return ResourceManager.GetString("exporting_planar_percent", resourceCulture);
             }
         }
         
@@ -430,11 +538,29 @@ namespace PE.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Planar curve.
+        /// </summary>
+        internal static string planar_curve {
+            get {
+                return ResourceManager.GetString("planar_curve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Precision.
         /// </summary>
         internal static string precision {
             get {
                 return ResourceManager.GetString("precision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress.
+        /// </summary>
+        internal static string progress {
+            get {
+                return ResourceManager.GetString("progress", resourceCulture);
             }
         }
         

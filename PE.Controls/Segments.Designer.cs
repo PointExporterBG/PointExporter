@@ -76,7 +76,7 @@ namespace PE.Controls
             this.gbSegments.Controls.Add(this.dgvSegments);
             this.gbSegments.Location = new System.Drawing.Point(0, 0);
             this.gbSegments.Name = "gbSegments";
-            this.gbSegments.Size = new System.Drawing.Size(674, 279);
+            this.gbSegments.Size = new System.Drawing.Size(674, 335);
             this.gbSegments.TabIndex = 17;
             this.gbSegments.TabStop = false;
             this.gbSegments.Text = "Segments";
@@ -168,7 +168,7 @@ namespace PE.Controls
             this.dgvSegments.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSegments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvSegments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSegments.Size = new System.Drawing.Size(640, 207);
+            this.dgvSegments.Size = new System.Drawing.Size(640, 270);
             this.dgvSegments.Style = MetroFramework.MetroColorStyle.Purple;
             this.dgvSegments.TabIndex = 8;
             this.dgvSegments.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSegments_CellEndEdit);
@@ -269,7 +269,8 @@ namespace PE.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gbSegments);
             this.Name = "Segments";
-            this.Size = new System.Drawing.Size(674, 279);
+            this.Size = new System.Drawing.Size(674, 335);
+            this.Style = MetroFramework.MetroColorStyle.Purple;
             this.gbSegments.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSegments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.segmentDataSetBindingSource)).EndInit();

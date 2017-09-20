@@ -4,10 +4,8 @@
 		where TCompositePoint : ICompositePoint<TPoint>, new()
 		where TPoint : IPoint
 	{
-		TCompositePoint Create(double x, double y, double z, double angle);
-
-		TCompositePoint Create(double x, double y, double z, double angle,
-			double xAbove, double yAbove, double zAbove, double angleAbove,
-			double xBelow, double yBelow, double zBelow, double angleBelow);
+		TCompositePoint Create(TPoint point, TPoint pointPlanar,
+            TPoint pointAbove, TPoint pointBelow,
+            TPoint pointAboveInner, TPoint pointBelowInner);
 	}
 }

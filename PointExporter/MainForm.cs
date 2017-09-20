@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using PE.Common.ProgressInfo;
 
 #endregion
 
@@ -69,6 +70,7 @@ namespace PointExporter
                 return;
 
             ProgressForm progressForm = new ProgressForm();
+            progressForm.ResourceManager = resourceManager;
             Control[] lblProgressArray = progressForm.Controls.Find("lblProgress", true);
             Control[] metroProgressBarArray = progressForm.Controls.Find("metroProgressBar", true);
 
@@ -88,7 +90,8 @@ namespace PointExporter
                     progressForm.CancellationTokenSource = cancellationTokenSource;
 
                     ResultPoints = await calculateService.CalculatePointsAsync(
-                        ucSettings.Radius, ucSettings.BearingRadius, ucSettings.CalculateOffsets,
+                        ucSettings.Radius, ucSettings.CalculatePlanar, ucSettings.CalculateOffsets, ucSettings.BearingRadius,
+                        ucSettings.CalculateBearingDepth, ucSettings.BearingDepth,
                         ucSettings.OffsetZ, ucSettings.DirectionSign, segments,
                         cancellationTokenSource.Token, new Progress<int>(percent =>
                         {
@@ -102,12 +105,14 @@ namespace PointExporter
                 else
                 {
                     ResultPoints = await calculateService.CalculatePointsAsync(
-                        ucSettings.Radius, ucSettings.BearingRadius, ucSettings.CalculateOffsets,
+                        ucSettings.Radius, ucSettings.CalculatePlanar, ucSettings.CalculateOffsets, ucSettings.BearingRadius,
+                        ucSettings.CalculateBearingDepth, ucSettings.BearingDepth,
                         ucSettings.OffsetZ, ucSettings.DirectionSign, segments,
                         CancellationToken.None);
                 }
 
-                (ucCharts as Charts<TCompositePoint, TPoint>).DrawCharts(ResultPoints, ucSettings.CalculateOffsets);
+                (ucCharts as Charts<TCompositePoint, TPoint>).DrawCharts(ResultPoints, ucSettings.CalculateOffsets, 
+                    ucSettings.CalculatePlanar, ucSettings.Radius);
 
                 tcMain.SelectTab(tpCharts);
             }
@@ -117,63 +122,6 @@ namespace PointExporter
                 progressForm.Close();
             }
         }
-
-        //private async Task<IEnumerable<TCompositePoint>> CalculatePointsWrapper(object[] args, CancellationToken token, IProgress<int> progress)
-        //{
-        //    return await calculateService.CalculatePointsAsync(args[0], args[1], args[2], args[3], 
-        //}
-
-        //private async Task<IEnumerable<TCompositePoint>> ExecuteWithProgressBar(
-        //    Func<object[], CancellationToken, IProgress<int>, Task<IEnumerable<TCompositePoint>>> method, 
-        //    string infoText, params object[] args)
-        //{
-        //    ProgressForm progressForm = new ProgressForm();
-        //    Control[] lblProgressArray = progressForm.Controls.Find("lblProgress", true);
-        //    Control[] metroProgressBarArray = progressForm.Controls.Find("metroProgressBar", true);
-
-        //    try
-        //    {
-        //        IEnumerable<TCompositePoint> resultPoints;
-
-        //        if (lblProgressArray.Any() && metroProgressBarArray.Any())
-        //        {
-        //            progressForm.Show();
-        //            MetroLabel lblProgress = lblProgressArray[0] as MetroLabel;
-        //            MetroProgressBar metroProgressBar = metroProgressBarArray[0] as MetroProgressBar;
-        //            lblProgress.Text = string.Format("{0} 0%", infoText);
-
-        //            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        //            progressForm.CancellationTokenSource = cancellationTokenSource;
-
-        //            resultPoints = await Runner(() => method(args,
-        //                cancellationTokenSource.Token, new Progress<int>(percent =>
-        //                {
-        //                    lblProgress.Text = string.Format("{0} {1}%", infoText, percent);
-        //                    metroProgressBar.Value = percent;
-        //                    metroProgressBar.Update();
-        //                })));
-
-        //            progressForm.Close();
-        //        }
-        //        else
-        //        {
-        //            resultPoints = await Runner(() => method(args, CancellationToken.None, null));
-        //        }
-
-        //        return resultPoints;
-        //    }
-        //    catch (Exception exc)
-        //    {
-        //        MetroMessageBox.Show(this, exc.Message, Constants.ERROR);
-        //        progressForm.Close();
-        //        return null;
-        //    }
-        //}
-
-        //public static T Runner<T>(Func<T> funcToRun)
-        //{
-        //    return funcToRun();
-        //}
 
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -194,6 +142,7 @@ namespace PointExporter
         private async void saveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ProgressForm progressForm = new ProgressForm();
+            progressForm.ResourceManager = resourceManager;
             Control[] lblProgressArray = progressForm.Controls.Find("lblProgress", true);
             Control[] metroProgressBarArray = progressForm.Controls.Find("metroProgressBar", true);
 
@@ -210,18 +159,20 @@ namespace PointExporter
                     CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                     progressForm.CancellationTokenSource = cancellationTokenSource;
 
-                    await exportService.ExportToExcelAsync(ResultPoints, ucSettings.CalculateOffsets, saveFileDialog.FileName,
-                        cancellationTokenSource.Token, new Progress<int>(percent =>
+                    await exportService.ExportToExcelAsync(ResultPoints, ucSettings.CalculateOffsets, 
+                        ucSettings.CalculatePlanar, ucSettings.CalculateBearingDepth, saveFileDialog.FileName,
+                        cancellationTokenSource.Token, new Progress<ExportInfo>(exportInfo =>
                         {
-                            lblProgress.Text = GetResource("exporting_percent", percent);
-                            metroProgressBar.Value = percent;
+                            lblProgress.Text = GetResource(string.Format("exporting_{0}_percent", exportInfo.InfoText), exportInfo.Percent);
+                            metroProgressBar.Value = exportInfo.Percent;
                             metroProgressBar.Update();
                         }));
 
                     progressForm.Close();
                 }
                 else
-                    await exportService.ExportToExcelAsync(ResultPoints, ucSettings.CalculateOffsets, saveFileDialog.FileName, CancellationToken.None);
+                    await exportService.ExportToExcelAsync(ResultPoints, ucSettings.CalculateOffsets,
+                        ucSettings.CalculatePlanar, ucSettings.CalculateBearingDepth, saveFileDialog.FileName, CancellationToken.None);
             }
             catch (Exception exc)
             {

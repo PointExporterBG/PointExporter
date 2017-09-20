@@ -279,4 +279,46 @@
   <data name="z" xml:space="preserve">
     <value>Z</value>
   </data>
+  <data name="planar_curve" xml:space="preserve">
+    <value>Planar curve</value>
+  </data>
+  <data name="bearing_depth" xml:space="preserve">
+    <value>Bearing depth</value>
+  </data>
+  <data name="calculate_bearing_depth" xml:space="preserve">
+    <value>Calculate bearing depth</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="enter_bearing_depth" xml:space="preserve">
+    <value>Please enter Bearing depth</value>
+  </data>
+  <data name="enter_number_for_bearing_depth" xml:space="preserve">
+    <value>Please enter a number for Bearing depth</value>
+  </data>
+  <data name="bearing_depth_required_for_inner_offset" xml:space="preserve">
+    <value>Bearing depth must have a value when calculating inner offsets</value>
+  </data>
+  <data name="progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="exporting_above_inner_percent" xml:space="preserve">
+    <value>Exporting above inner points {0}%</value>
+  </data>
+  <data name="exporting_above_percent" xml:space="preserve">
+    <value>Exporting above points {0}%</value>
+  </data>
+  <data name="exporting_below_inner_percent" xml:space="preserve">
+    <value>Exporting below inner points {0}%</value>
+  </data>
+  <data name="exporting_below_percent" xml:space="preserve">
+    <value>Exporting below points {0}%</value>
+  </data>
+  <data name="exporting_main_percent" xml:space="preserve">
+    <value>Exporting main points {0}%</value>
+  </data>
+  <data name="exporting_planar_percent" xml:space="preserve">
+    <value>Exporting planar points {0}%</value>
+  </data>
 </root>

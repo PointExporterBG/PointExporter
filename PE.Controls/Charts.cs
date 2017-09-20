@@ -28,14 +28,18 @@ namespace PE.Controls
             chartResultXY.Location = new Point(Constants.CHART_HORIZONTAL_OFFSETS + chartSideLength, Constants.CHART_VERTICAL_LOCATION);
         }
 
-        public void DrawCharts(IEnumerable<TCompositePoint> points, bool calculateOffsets)
+        public void DrawCharts(IEnumerable<TCompositePoint> points, bool calculateOffsets, bool planar, double radius)
         {
-            InitializeChartXY(points);
+            InitializeChartXY(points, planar, radius);
             InitializeChartAngleZ();
 
             foreach (TCompositePoint point in points)
             {
-                chartResultXY.Series[0].Points.AddXY(point.Point.X, point.Point.Y);
+                if (planar)
+                    chartResultXY.Series[0].Points.AddXY(Math.Cos(point.Point.Angle * Constants.RADIAN) * (radius + point.Point.Z),
+                                                         Math.Sin(point.Point.Angle * Constants.RADIAN) * (radius + point.Point.Z));
+                else
+                    chartResultXY.Series[0].Points.AddXY(point.Point.X, point.Point.Y);
 
                 chartResultAngleZ.Series[0].Points.AddXY(point.Point.Angle, point.Point.Z);
                 if (calculateOffsets)
@@ -46,7 +50,7 @@ namespace PE.Controls
             }
         }
 
-        private void InitializeChartXY(IEnumerable<TCompositePoint> points)
+        private void InitializeChartXY(IEnumerable<TCompositePoint> points, bool planar, double radius)
         {
             chartResultXY.Series.Clear();
             foreach (var series in chartResultXY.Series)
@@ -55,10 +59,18 @@ namespace PE.Controls
             chartResultXY.Series[0].ChartType = SeriesChartType.Line;
             chartResultXY.Series[0].Color = Constants.DEFAULT_COLOR;
             chartResultXY.Legends.Clear();
-            double maxX = points.Max(p => p.Point.X);
-            double minX = points.Min(p => p.Point.X);
-            double maxY = points.Max(p => p.Point.Y);
-            double minY = points.Min(p => p.Point.Y);
+            double maxX = planar
+                ? points.Max(p => Math.Cos(p.Point.Angle * Constants.RADIAN) * (radius + p.Point.Z))
+                : points.Max(p => p.Point.X);
+            double minX = planar
+                ? points.Min(p => Math.Cos(p.Point.Angle * Constants.RADIAN) * (radius + p.Point.Z))
+                : points.Min(p => p.Point.X);
+            double maxY = planar
+                ? points.Max(p => Math.Sin(p.Point.Angle * Constants.RADIAN) * (radius + p.Point.Z))
+                : points.Max(p => p.Point.Y);
+            double minY = planar
+                ? points.Min(p => Math.Sin(p.Point.Angle * Constants.RADIAN) * (radius + p.Point.Z))
+                : points.Min(p => p.Point.Y);
             chartResultXY.ChartAreas[0].AxisX.Maximum = maxX;
             chartResultXY.ChartAreas[0].AxisX.Minimum = minX;
             chartResultXY.ChartAreas[0].AxisY.Maximum = maxY;

@@ -1,5 +1,6 @@
 ﻿using PE.Common;
 using PE.Common.Exceptions;
+using PE.Common.ProgressInfo;
 using PE.Entities;
 using PE.Language;
 using System;
@@ -23,41 +24,59 @@ namespace PE.Services.Default
             this.resourceManager = resourceManager;
         }
 
-        public async Task ExportToExcelAsync(IEnumerable<TCompositePoint> points, bool calculateOffsets, string fileName,
-            CancellationToken cancellationToken, IProgress<int> progress = null)
+        public async Task ExportToExcelAsync(IEnumerable<TCompositePoint> points, bool calculateOffsets, 
+            bool calculatePlanar, bool calculateBearingDepth, string fileName,
+            CancellationToken cancellationToken, IProgress<ExportInfo> progress = null)
         {
-            await Task.Run(() => ExportToExcel(points, calculateOffsets, fileName, cancellationToken, progress),
+            await Task.Run(() => ExportToExcel(points, calculateOffsets, calculatePlanar, calculateBearingDepth, fileName, cancellationToken, progress),
                 cancellationToken);
         }
 
-        public void ExportToExcel(IEnumerable<TCompositePoint> points, bool calculateOffsets, string fileName,
-            CancellationToken cancellationToken, IProgress<int> progress = null)
+        public void ExportToExcel(IEnumerable<TCompositePoint> points, bool calculateOffsets,
+            bool calculatePlanar, bool calculateBearingDepth, string fileName,
+            CancellationToken cancellationToken, IProgress<ExportInfo> progress = null)
         {
-            int index = 1;
-            int totalProgress = 2 * points.Count(); // 2 -> 1 call PointsToTable + 1 call ExportPointsToExcel
-
-            if (!calculateOffsets)
+            if (calculatePlanar)
             {
-                DataTable dtPoints = PointsToTable(points.Select(p => p.Point), ref index, totalProgress, cancellationToken, progress);
-                ExportPointsToExcel(dtPoints, fileName, ref index, totalProgress, cancellationToken, progress);
+                ExportPoints(points.Select(p => p.PlanarPoint), fileName, "planar", cancellationToken, progress);
             }
             else
             {
-                totalProgress = 6 * totalProgress;  // 6 -> 3 calls PointsToTable + 3 calls ExportPointsToExcel
+                ExportPoints(points.Select(p => p.Point), fileName, "main", cancellationToken, progress);
+            }
 
-                DataTable dtPoints = PointsToTable(points.Select(p => p.Point), ref index, totalProgress, cancellationToken, progress);
-                ExportPointsToExcel(dtPoints, fileName, ref index, totalProgress, cancellationToken, progress);
+            if (calculateOffsets)
+            {
+                ExportPoints(points.Select(p => p.AbovePoint), fileName, "above", cancellationToken, progress);
 
-                dtPoints = PointsToTable(points.Select(p => p.AbovePoint), ref index, totalProgress, cancellationToken, progress);
-                ExportPointsToExcel(dtPoints, fileName.Insert(fileName.Length - 5, "_above"), ref index, totalProgress, cancellationToken, progress);
+                ExportPoints(points.Select(p => p.BelowPoint), fileName, "below", cancellationToken, progress);
 
-                dtPoints = PointsToTable(points.Select(p => p.BelowPoint), ref index, totalProgress, cancellationToken, progress);
-                ExportPointsToExcel(dtPoints, fileName.Insert(fileName.Length - 5, "_below"), ref index, totalProgress, cancellationToken, progress);
+                if (calculateBearingDepth)
+                {
+                    ExportPoints(points.Select(p => p.AboveInnerPoint), fileName, "above_inner", cancellationToken, progress);
+
+                    ExportPoints(points.Select(p => p.BelowInnerPoint), fileName, "below_inner", cancellationToken, progress);
+                }
             }
         }
 
-        private static DataTable PointsToTable(IEnumerable<TPoint> points, ref int index, int totalProgress,
-            CancellationToken cancellationToken, IProgress<int> progress = null)
+        private void ExportPoints(IEnumerable<TPoint> points, string fileName, string infoText,
+            CancellationToken cancellationToken, IProgress<ExportInfo> progress = null)
+        {
+            DataTable dtPoints = PointsToTable(points, infoText, cancellationToken, progress);
+
+            fileName = GenerateFileName(fileName, infoText);
+
+            ExportPointsToExcel(dtPoints, fileName, infoText, cancellationToken, progress);
+        }
+
+        private static string GenerateFileName(string fileName, string infoText = null)
+        {
+            return fileName.Insert(fileName.Length - 5, string.Format("_{0}", infoText));
+        }
+
+        private static DataTable PointsToTable(IEnumerable<TPoint> points, string infoText,
+            CancellationToken cancellationToken, IProgress<ExportInfo> progress = null)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -67,6 +86,9 @@ namespace PE.Services.Default
             dtPoints.Columns.Add(Constants.COLUMN_Z, typeof(double));
             dtPoints.Columns.Add(Constants.COLUMN_ANGLE, typeof(double));
 
+            // half of export
+            int index = 0;
+            int count = points.Count();
             foreach (IPoint point in points)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -79,14 +101,14 @@ namespace PE.Services.Default
                 dtPoints.Rows.Add(row);
 
                 if (progress != null)
-                    progress.Report(index++ * 100 / totalProgress);
+                    progress.Report(new ExportInfo(index++ * 50 / count, infoText));
             }
 
             return dtPoints;
         }
 
-        private void ExportPointsToExcel(DataTable dtPoints, string fileName, ref int index, int totalProgress,
-            CancellationToken cancellationToken, IProgress<int> progress = null)
+        private void ExportPointsToExcel(DataTable dtPoints, string fileName, string infoText,
+            CancellationToken cancellationToken, IProgress<ExportInfo> progress = null)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -111,6 +133,9 @@ namespace PE.Services.Default
                 excelWorkSheet.Cells[1, i++] = column.ColumnName;
             }
 
+            // next half of export
+            int index = dtPoints.Rows.Count;
+            int count = dtPoints.Rows.Count * 2;
             i = 1;
             foreach (DataRow drPoint in dtPoints.Rows)
             {
@@ -125,7 +150,7 @@ namespace PE.Services.Default
                 i++;
 
                 if (progress != null)
-                    progress.Report(index++ * 100 / totalProgress);
+                    progress.Report(new ExportInfo(index++ * 100 / count, infoText));
             }
 
             excelWorkBook.SaveAs(fileName);

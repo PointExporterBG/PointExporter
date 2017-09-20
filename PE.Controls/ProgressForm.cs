@@ -10,6 +10,8 @@ namespace PE.Controls
         public ProgressForm()
         {
             InitializeComponent();
+
+            SetResources();
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e)

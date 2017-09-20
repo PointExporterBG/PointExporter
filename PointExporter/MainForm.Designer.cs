@@ -59,7 +59,8 @@ namespace PointExporter
             this.tcMain.Name = "tcMain";
             this.tcMain.Padding = new System.Drawing.Point(6, 8);
             this.tcMain.SelectedIndex = 1;
-            this.tcMain.Size = new System.Drawing.Size(948, 392);
+            this.tcMain.Size = new System.Drawing.Size(948, 504);
+            this.tcMain.Style = MetroFramework.MetroColorStyle.Purple;
             this.tcMain.TabIndex = 3;
             this.tcMain.TabStop = false;
             this.tcMain.UseSelectable = true;
@@ -79,7 +80,7 @@ namespace PointExporter
             // btnCalculate
             // 
             this.btnCalculate.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCalculate.Location = new System.Drawing.Point(410, 300);
+            this.btnCalculate.Location = new System.Drawing.Point(410, 356);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(129, 37);
             this.btnCalculate.TabIndex = 4;
@@ -96,7 +97,8 @@ namespace PointExporter
             this.ucSegments.Location = new System.Drawing.Point(257, 8);
             this.ucSegments.Name = "ucSegments";
             this.ucSegments.ResultPoints = null;
-            this.ucSegments.Size = new System.Drawing.Size(674, 279);
+            this.ucSegments.Size = new System.Drawing.Size(674, 335);
+            this.ucSegments.Style = MetroFramework.MetroColorStyle.Purple;
             this.ucSegments.TabIndex = 3;
             this.ucSegments.TitleText = "Point Exporter";
             this.ucSegments.UseSelectable = true;
@@ -105,7 +107,8 @@ namespace PointExporter
             // 
             this.ucSettings.Location = new System.Drawing.Point(12, 8);
             this.ucSettings.Name = "ucSettings";
-            this.ucSettings.Size = new System.Drawing.Size(239, 279);
+            this.ucSettings.Size = new System.Drawing.Size(239, 335);
+            this.ucSettings.Style = MetroFramework.MetroColorStyle.Purple;
             this.ucSettings.TabIndex = 2;
             this.ucSettings.UseSelectable = true;
             // 
@@ -117,14 +120,14 @@ namespace PointExporter
             this.tpCharts.Controls.Add(this.ucCharts);
             this.tpCharts.Location = new System.Drawing.Point(4, 38);
             this.tpCharts.Name = "tpCharts";
-            this.tpCharts.Size = new System.Drawing.Size(940, 350);
+            this.tpCharts.Size = new System.Drawing.Size(940, 462);
             this.tpCharts.TabIndex = 1;
             this.tpCharts.Text = "Charts";
             // 
             // btnExport
             // 
             this.btnExport.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnExport.Location = new System.Drawing.Point(454, 300);
+            this.btnExport.Location = new System.Drawing.Point(454, 356);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(129, 37);
             this.btnExport.TabIndex = 2;
@@ -135,7 +138,7 @@ namespace PointExporter
             // btnBack
             // 
             this.btnBack.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnBack.Location = new System.Drawing.Point(300, 300);
+            this.btnBack.Location = new System.Drawing.Point(300, 356);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(129, 37);
             this.btnBack.TabIndex = 1;
@@ -151,7 +154,8 @@ namespace PointExporter
             this.ucCharts.BackColor = System.Drawing.SystemColors.Window;
             this.ucCharts.Location = new System.Drawing.Point(10, 11);
             this.ucCharts.Name = "ucCharts";
-            this.ucCharts.Size = new System.Drawing.Size(850, 278);
+            this.ucCharts.Size = new System.Drawing.Size(850, 335);
+            this.ucCharts.Style = MetroFramework.MetroColorStyle.Purple;
             this.ucCharts.TabIndex = 0;
             this.ucCharts.UseSelectable = true;
             // 
@@ -165,7 +169,7 @@ namespace PointExporter
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(977, 469);
+            this.ClientSize = new System.Drawing.Size(977, 525);
             this.Controls.Add(this.tcMain);
             this.MinimumSize = new System.Drawing.Size(977, 469);
             this.Name = "PEMainForm";
